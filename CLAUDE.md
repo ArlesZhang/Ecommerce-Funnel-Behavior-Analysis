@@ -44,19 +44,14 @@ Claude 必须根据用户所处阶段切换协作方式：
   只给思路、提示、检查点，**不给完整答案**；用户写完后对比点评、指出差距。
 - 不确定用户处于哪种模式时，先问一句再动手。
 
-底线原则：
-
-- 一切以"把业务问题讲清楚"为准，不炫技、不上复杂模型。
-- 每个分析必须配 **业务解读（含具体数字）+ 策略建议**，禁止只甩图表或裸数字。
-- 数字必须来自真实查询结果，禁止编造。
-
 ## 项目结构
 
 ```
 ecommerce-funnel-behavior-analysis/
 ├── CLAUDE.md                    # 本文件
 ├── README.md                    # 最终要写成策略报告风格（不是代码罗列）
-├── requirements.txt
+├── pyproject.toml               # 依赖声明（uv 原生管理）
+├── uv.lock                      # 精确环境锁文件（提交入库）
 ├── .venv/                       # 虚拟环境（gitignore，勿提交）
 ├── data/
 │   ├── README.md                # 数据下载说明（kaggle 命令）
@@ -113,7 +108,7 @@ ecommerce-funnel-behavior-analysis/
 
 ## 技术栈与环境
 
-- Python 环境：项目内 `.venv/`，激活 `source .venv/bin/activate`，依赖见 `requirements.txt`。
+- Python 环境：uv 原生依赖管理（`pyproject.toml` 声明 + `uv.lock` 锁文件），`uv sync` 一键还原项目内 `.venv/`；激活 `source .venv/bin/activate`。
 - 核心工具：
   - **DuckDB**：可直接对 CSV 跑 SQL，无需入库：`duckdb.sql("SELECT ... FROM '../data/raw/xxx.csv'")`
   - **Pandas 3.x**：注意新版 API（如 copy-on-write 默认开启，链式赋值失效等）
@@ -135,3 +130,8 @@ ecommerce-funnel-behavior-analysis/
 - ❌ 追求模型复杂度或工程化炫技，一切以"把业务问题讲清楚"为准
 - ❌ 输出没有业务解读的裸数字 / 裸图表
 - ❌ 编造或猜测数字，一切以真实查询为准
+
+## 待办
+
+- [ ] **修复 CJK 字体警告（独立任务，与依赖迁移分开）**：notebooks 03/04 未配置中文字体，运行时刷 `Glyph missing from font(s) DejaVu Sans` 警告、图内中文标签可能显示为方框；修复参考项目二 notebooks 的 `plt.rcParams["font.sans-serif"]` 配置方式。
+- [ ] **DuckDB 无 ORDER BY 导致展示输出不稳定**：03 的 `rfm.head(10)` 样本行序与 04 的 `04_category_repurchase.png` 字节每次运行不同（DuckDB 并行聚合不保证行序）；聚合业务数字不受影响，展示前显式排序即可统一。

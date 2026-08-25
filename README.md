@@ -165,7 +165,8 @@ Olist 是巴西最大的电商平台之一，连接巴西各地的卖家与买�
 ecommerce-funnel-behavior-analysis/
 ├── CLAUDE.md                    # 项目协作规则
 ├── README.md                    # 本文件（策略报告）
-├── requirements.txt             # Python 依赖
+├── pyproject.toml               # Python 依赖声明（uv 原生管理）
+├── uv.lock                      # 精确环境锁文件
 ├── data/
 │   ├── README.md                # 数据下载说明
 │   └── raw/                     # Olist 9 张 CSV（gitignore，只读）
@@ -194,11 +195,10 @@ ecommerce-funnel-behavior-analysis/
    cd ecommerce-funnel-behavior-analysis
    ```
 
-2. **安装依赖**：
+2. **安装依赖**（本项目用 [uv](https://docs.astral.sh/uv/) 做原生依赖管理，未安装请先安装）：
    ```bash
-   python -m venv .venv
+   uv sync                # 按 uv.lock 一键还原完整环境（自动创建 .venv）
    source .venv/bin/activate
-   pip install -r requirements.txt
    ```
 
 3. **下载数据**（按 `data/README.md` 中的命令）：

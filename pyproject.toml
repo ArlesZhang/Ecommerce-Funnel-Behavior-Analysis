@@ -1,0 +1,30 @@
+[project]
+name = "ecommerce-funnel-behavior-analysis"
+version = "1.0.0"
+description = "Olist 巴西电商全链路策略分析（作品集项目一）：业务理解 → 漏斗 → RFM → 留存复购 → 策略建议"
+readme = "README.md"
+requires-python = ">=3.13,<3.14"
+
+# 直接依赖 = notebooks 01–04 实际使用的库，
+# 版本锁定为分析完成时已验证的版本；
+# 完整环境的精确复现由 uv.lock 保证（uv sync 一键还原）。
+dependencies = [
+    # 分析核心（DuckDB 直接对 CSV 跑 SQL + Pandas 二次加工）
+    "duckdb==1.5.4",
+    "numpy==2.5.1",
+    "pandas==3.0.3",
+    # 可视化（中文标签图表）
+    "matplotlib==3.11.0",
+    "seaborn==0.13.2",
+    "plotly==6.9.0",
+    # Notebook 运行与重跑校验
+    "jupyterlab==4.6.1",
+    "ipykernel==7.3.0",
+    "nbconvert==7.17.1",
+    # 数据获取（Kaggle 数据集下载，见 data/README.md）
+    "kaggle==2.2.3",
+]
+
+[tool.uv]
+# 纯分析项目，不是 Python 包，不需要构建/安装自身
+package = false
