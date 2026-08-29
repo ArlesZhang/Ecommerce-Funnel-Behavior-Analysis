@@ -63,7 +63,10 @@ ecommerce-funnel-behavior-analysis/
 │   ├── 03_rfm_analysis.ipynb            # RFM 用户分层
 │   └── 04_retention_analysis.ipynb      # 留存 / 复购 + Cohort
 ├── docs/                        # 分析报告 md 产出（按需创建）
-└── reports/                     # 图表产出（如 cohort_retention_heatmap.png）
+├── reports/                     # 图表产出（如 cohort_retention_heatmap.png）
+└── sql_and_bi/                  # 扩展模块：纯 SQL 复刻 + 交互式看板（口径与 notebooks 一致）
+    ├── sql_work/                # 01-04 四个 .sql + 逐段执行/对账的 sql_workbook.ipynb
+    └── BI_DashBoards/           # build_dashboard.py + 生成的单文件 Plotly 看板
 ```
 
 ## 分析路线与产出物

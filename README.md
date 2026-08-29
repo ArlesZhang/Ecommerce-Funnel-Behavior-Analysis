@@ -146,6 +146,13 @@ Olist 是巴西最大的电商平台之一，连接巴西各地的卖家与买�
 - **产出**：Cohort 热力图、留存曲线、复购时间分布、品类复购率对比
 - **关键结论**：首月留存极低，7d/15d/25d 是最佳触达节奏
 
+### 扩展模块：纯 SQL 复刻 + 交互式看板（`sql_and_bi/`）
+
+上述四个阶段的全部分析结论，另用**纯 SQL**（窗口函数 / 多层 CTE / 多表 JOIN /
+PIVOT / 分位数函数，DuckDB 直读 CSV）从零复刻一遍，逐项对账一致；
+并整合为一张**离线可交互的 Plotly 看板**（12 张图 + KPI 卡片 + 业务解读）。
+详见 [`sql_and_bi/README.md`](sql_and_bi/README.md)。
+
 ---
 
 ## 技术栈
@@ -155,6 +162,7 @@ Olist 是巴西最大的电商平台之一，连接巴西各地的卖家与买�
 | **DuckDB** | 直接对 CSV 跑 SQL，无需入库 |
 | **Pandas 3.x** | 数据探索、二次加工、可视化 |
 | **Matplotlib / Seaborn** | 图表绘制 |
+| **Plotly** | 交互式看板（`sql_and_bi/BI_DashBoards`） |
 | **JupyterLab** | Notebook 环境 |
 
 ---
@@ -177,12 +185,16 @@ ecommerce-funnel-behavior-analysis/
 │   └── 04_retention_analysis.ipynb      # 留存/复购
 ├── docs/
 │   └── 01_business_understanding.md     # 业务理解报告
-└── reports/                             # 13 张分析图表
-    ├── 01_*.png                         # 阶段 01 产出
-    ├── 02_*.png                         # 阶段 02 产出
-    ├── 03_*.png                         # 阶段 03 产出
-    ├── 04_*.png                         # 阶段 04 产出
-    └── cohort_retention_heatmap.png     # Cohort 留存热力图
+├── reports/                             # 13 张分析图表
+│   ├── 01_*.png                         # 阶段 01 产出
+│   ├── 02_*.png                         # 阶段 02 产出
+│   ├── 03_*.png                         # 阶段 03 产出
+│   ├── 04_*.png                         # 阶段 04 产出
+│   └── cohort_retention_heatmap.png     # Cohort 留存热力图
+└── sql_and_bi/                          # 扩展模块：纯 SQL 复刻 + 交互式看板
+    ├── README.md                        # 模块说明（文件对照 / 运行方式 / 对账）
+    ├── sql_work/                        # 4 个 .sql 文件 + 逐段执行的 workbook
+    └── BI_DashBoards/                   # Plotly 单文件交互看板 + 生成脚本
 ```
 
 ---
@@ -210,6 +222,15 @@ ecommerce-funnel-behavior-analysis/
    ```bash
    jupyter lab
    # 按顺序打开 notebooks/01 → 02 → 03 → 04
+   ```
+
+5. **（可选）SQL 复刻与交互看板**：
+   ```bash
+   # 纯 SQL 复刻：逐段执行 4 个 .sql 文件（口径与 notebooks 完全一致）
+   jupyter lab sql_and_bi/sql_work/sql_workbook.ipynb
+
+   # 交互式看板：直接用浏览器打开（离线可用，无需服务器）
+   # 若需重新生成：python sql_and_bi/BI_DashBoards/build_dashboard.py
    ```
 
 ---

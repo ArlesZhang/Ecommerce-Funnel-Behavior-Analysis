@@ -8,6 +8,12 @@ __pycache__/
 # Jupyter
 .ipynb_checkpoints/
 
+# Serena (AI 工具缓存)
+.serena/
+
+# 编辑器本地配置
+.vscode/
+
 # Data
 data/raw/
 data/processed/
