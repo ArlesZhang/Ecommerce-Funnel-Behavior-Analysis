@@ -84,3 +84,8 @@ python sql_and_bi/BI_DashBoards/build_dashboard.py
 RFM 四群人数与 GMV 占比（Champions 33,316 人 / 53.04% GMV）、
 复购 2,801 人（3.0%）、复购窗口 0-7 天 1,028 人（36.7%）等。
 用户级打分（93,358 人的 R/F/M 得分）做过全量比对，与 pandas 实现 0 不一致。
+
+## 可替换的实现思路
+
+BI 看板：当前是 Plotly 单文件。若要可筛选/联动更强，可换 Dash（Plotly 官方框架，支持回调）或 Streamlit（代码更少、适合快速原型）；追求零代码可导出到 Metabase/Tableau。
+SQL 执行：当前用 DuckDB 直读 CSV。若数据量大或需复用，可先 CREATE TABLE ... AS 落成 .duckdb 库文件再查。
