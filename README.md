@@ -1,6 +1,6 @@
 # Olist 电商全链路策略分析
 
-> **作者**：Arles Zhang | **联系方式**：arles3427616237@gmail.com | **GitHub**：[ArlesZhang](https://github.com/ArlesZhang)
+> **作者**：Arles Zhang | **联系方式**：arles3427616237@gmail.com | **📊 Interactive Dashboard **：[ArlesZhang](https://github.com/ArlesZhang)
 
 ---
 
